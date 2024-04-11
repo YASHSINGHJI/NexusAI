@@ -189,7 +189,11 @@ if __name__ == "__main__":
             os.system("start chrome")
         elif "close chrome" in query:
             os.system("taskkill /f /im chrome.exe")
+        elif "open spotify and play" in query:
+            query-query.replace("open spotify and play", "")
+            os.system(f"start spotify:search:{query}")
+        elif "open whatsapp" in query:
+            os.system("start chrome https://web.whatsapp.com/")
         elif "exit" in query:
             speak("Thank you for using Nexus. Have a good day Abhinav!")
             break
-
