@@ -1,4 +1,5 @@
 import pyautogui
+import requests
 import speech_recognition as sr
 import pyttsx3
 import os
@@ -67,15 +68,15 @@ if __name__ == "__main__":
         elif 'what is' in query:
             query = query.replace("what is", "")
             result = wikipedia.summary(query, sentences=2)
-            speak("According to Wikipedia")
             print(result)
-            speak(result)
+            speak("According to Wikipedia %s" % result)
+
         elif 'who is' in query:
             query = query.replace("who is", "")
             result = wikipedia.summary(query, sentences=2)
-            speak("According to Wikipedia")
             print(result)
-            speak(result)
+            speak("According to Wikipedia %s" % result)
+
         elif "just open google" in query:
             webbrowser.open("google.com")
         elif "open google" in query:
@@ -192,6 +193,56 @@ if __name__ == "__main__":
         elif "open spotify and play" in query:
             query = query.replace("open spotify and play", "")
             os.system(f"start spotify:search:{query}")
+        elif "tell me the weather" in query:
+            def get_weather_forecast(api_key, city):
+                url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
+                response = requests.get(url)
+                data = response.json()
+                if response.status_code == 200:
+                    weather = {
+                        "description": data["weather"][0]["description"],
+                        "temperature": data["main"]["temp"],
+                        "humidity": data["main"]["humidity"],
+                        "wind_speed": data["wind"]["speed"]
+                    }
+                    return weather
+                else:
+                    return None
+
+
+            def take_location_command():
+                r = sr.Recognizer()
+                with sr.Microphone() as source:
+                    print("Listening for location...")
+                    speak("Please tell me the location")
+                    audio = r.listen(source)
+
+                try:
+                    print("Recognizing location...")
+                    location = r.recognize_google(audio, language="en-in")
+                    print(f"User said: {location}")
+                    return location
+                except Exception as e:
+                    print("Error recognizing location:", e)
+                    return None
+
+
+            if __name__ == "__main__":
+                api_key = "f199eb32ea77257f988789bdfcebf188"
+                location = take_location_command()
+                if location:
+                    weather_forecast = get_weather_forecast(api_key, location)
+                    if weather_forecast:
+                        speak(f"The weather forecast for {location} is as follows:")
+                        speak(f"Description: {weather_forecast['description']}")
+                        speak(f"Temperature: {weather_forecast['temperature']} degrees Celsius")
+                        speak(f"Humidity: {weather_forecast['humidity']}%")
+                        speak(f"Wind Speed: {weather_forecast['wind_speed']} meters per second")
+                    else:
+                        speak("Failed to fetch weather forecast. Please try again later.")
+                else:
+                    speak("Failed to recognize location. Please try again.")
+
         elif "exit" in query:
             speak("Thank you for using Nexus. Have a good day Abhinav!")
             break
