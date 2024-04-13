@@ -52,7 +52,7 @@ def takeCommand():
 if __name__ == "__main__":
     while True:
         query = takeCommand().lower()
-        if "Hello Nexus " in query:
+        if "hello" in query:
             speak("Hello, I am your Nexus AI. How may I help you?")
         elif "how are you" in query:
             speak("I am fine, thank you for asking. How may I help you?")
@@ -190,10 +190,11 @@ if __name__ == "__main__":
         elif "close chrome" in query:
             os.system("taskkill /f /im chrome.exe")
         elif "open spotify and play" in query:
-            query-query.replace("open spotify and play", "")
+            query = query.replace("open spotify and play", "")
             os.system(f"start spotify:search:{query}")
-        elif "open whatsapp" in query:
-            os.system("start chrome https://web.whatsapp.com/")
         elif "exit" in query:
             speak("Thank you for using Nexus. Have a good day Abhinav!")
             break
+        else:
+            speak("I am sorry, I didn't get that. Please say it again.")
+            continue
