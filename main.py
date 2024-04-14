@@ -29,7 +29,7 @@ def wishMe():
         speak("Good Afternoon!")
     else:
         speak("Good Evening!")
-    speak("Hello, I am your Nexus AI. How may I help you?")
+    speak("I am your Nexus AI. How may I help you Abhinav?")
 
 
 def takeCommand():
@@ -51,6 +51,7 @@ def takeCommand():
 
 
 if __name__ == "__main__":
+    wishMe()
     while True:
         query = takeCommand().lower()
         if "hello" in query:
