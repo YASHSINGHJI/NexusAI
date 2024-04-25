@@ -47,11 +47,6 @@ Contributions are welcome! If you have ideas for new features, bug fixes, or imp
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Acknowledgments
-
-- Hat tip to the concept of interconnectedness and centralization for inspiring Nexus AI.
-- Special thanks to the open-source community for their invaluable contributions.
-
 ## Contact
 
 For any inquiries or feedback, please contact [abhinavsingh12347@gmail.com](mailto:abhinavsingh12347@gmail.com).
